@@ -1,0 +1,20 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from routes.employee import router as employee_router
+from routes.attendance import router as attendance_router
+from databases.indexes import create_indexes
+
+app = FastAPI(title="HRMS Lite API")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+@app.on_event("startup")
+async def startup_event():
+    await create_indexes()
+
+app.include_router(employee_router, prefix="/employees", tags=["Employees"])
+app.include_router(attendance_router, prefix="/attendance", tags=["Attendance"])
