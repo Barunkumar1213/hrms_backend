@@ -7,7 +7,7 @@ from databases.indexes import create_indexes
 app = FastAPI(title="HRMS Lite API")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173" , "https://hrms-frontend-ecru-zeta.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
